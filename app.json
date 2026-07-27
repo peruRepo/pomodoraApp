@@ -3,6 +3,7 @@
     "name": "Pomodoro",
     "slug": "flow-pomodoro",
     "version": "1.0.0",
+    "icon": "./icon.png",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "ios": {
