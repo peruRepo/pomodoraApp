@@ -1,0 +1,19 @@
+{
+  "expo": {
+    "name": "Pomodoro",
+    "slug": "flow-pomodoro",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.ayyam.flowpomodoro",
+      "infoPlist": {
+        "NSUserNotificationsUsageDescription": "Flow uses notifications to tell you when a focus block starts or ends."
+      }
+    },
+    "plugins": [
+      "expo-notifications"
+    ]
+  }
+}
