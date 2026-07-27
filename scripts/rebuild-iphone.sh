@@ -4,15 +4,20 @@ set -e
 set -u
 set -o pipefail
 
-SCRIPT_DIR="$(cd -- "$(dirname -- "$0")" && pwd)"
-PROJECT_DIR="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
+PROJECT_DIR="${PROJECT_DIR:-}"
 DEVICE_ID="${1:-}"
-ENTITLEMENTS_FILE="${PROJECT_DIR}/ios/Flow/Flow.entitlements"
+
+if [[ -z "${PROJECT_DIR}" ]]; then
+  print -u2 -- "PROJECT_DIR is empty. Set it to the absolute project path before running this script."
+  exit 2
+fi
 
 if [[ -z "${DEVICE_ID}" ]]; then
   print -u2 -- "Usage: $0 <iPhone name or identifier>"
-  exit 2
+  exit 3
 fi
+
+ENTITLEMENTS_FILE="${PROJECT_DIR}/ios/Flow/Flow.entitlements"
 
 export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 export DEVELOPER_DIR="/Applications/Xcode.app/Contents/Developer"

@@ -15,6 +15,12 @@
   <key>WorkingDirectory</key>
   <string>REPLACE_WITH_PROJECT_DIR</string>
 
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PROJECT_DIR</key>
+    <string>REPLACE_WITH_PROJECT_DIR</string>
+  </dict>
+
   <key>RunAtLoad</key>
   <true/>
 

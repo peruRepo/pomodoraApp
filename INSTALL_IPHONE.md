@@ -156,6 +156,11 @@ The repository includes:
 - `scripts/launchd/com.ayyam.flowpomodoro.refresh.plist.example`, which asks macOS to run
   the check every 12 hours.
 
+The scripts intentionally leave `PROJECT_DIR` empty. Provide the absolute path
+to your cloned project through that environment variable whenever you run a
+script manually. The LaunchAgent template sets it after you replace
+`REPLACE_WITH_PROJECT_DIR`.
+
 ### 6.1 Add the iPhone name or identifier
 
 Open the LaunchAgent template:
@@ -233,7 +238,7 @@ To test a real reinstall immediately, run the script with `--force` and the
 exact device name or identifier:
 
 ```bash
-/bin/zsh \
+PROJECT_DIR="/absolute/path/to/pomodoraApp" /bin/zsh \
   "scripts/refresh-iphone.sh" \
   "My iPhone" \
   --force
@@ -273,7 +278,7 @@ If automation fails or the profile has already expired, unlock the iPhone and
 run:
 
 ```bash
-/bin/zsh \
+PROJECT_DIR="/absolute/path/to/pomodoraApp" /bin/zsh \
   "scripts/refresh-iphone.sh" \
   "My iPhone" \
   --force

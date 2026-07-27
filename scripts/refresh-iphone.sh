@@ -3,8 +3,13 @@
 set -u
 set -o pipefail
 
-SCRIPT_DIR="$(cd -- "$(dirname -- "$0")" && pwd)"
-PROJECT_DIR="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
+PROJECT_DIR="${PROJECT_DIR:-}"
+
+if [[ -z "${PROJECT_DIR}" ]]; then
+  print -u2 -- "PROJECT_DIR is empty. Set it to the absolute project path before running this script."
+  exit 2
+fi
+
 STATE_DIR="${PROJECT_DIR}/.expo"
 SUCCESS_FILE="${STATE_DIR}/last-iphone-refresh"
 LOG_FILE="${STATE_DIR}/iphone-refresh.log"
@@ -23,7 +28,7 @@ MODE="${2:-}"
 
 if [[ -z "${DEVICE}" || "${DEVICE}" == "REPLACE_WITH_IPHONE_NAME_OR_ID" ]]; then
   print -- "No iPhone name or identifier is configured."
-  exit 2
+  exit 3
 fi
 
 if [[ "${MODE}" != "--force" && -f "${SUCCESS_FILE}" ]]; then
@@ -39,17 +44,17 @@ fi
 
 if [[ ! -d "/Applications/Xcode.app" ]]; then
   print -- "Xcode is not installed at /Applications/Xcode.app."
-  exit 3
+  exit 4
 fi
 
 if [[ ! -x "${PROJECT_DIR}/node_modules/.bin/expo" ]]; then
   print -- "Project dependencies are missing. Run npm install in ${PROJECT_DIR}."
-  exit 4
+  exit 5
 fi
 
 if [[ ! -d "${PROJECT_DIR}/ios" ]]; then
   print -- "The native iOS project is missing. Complete the first USB installation."
-  exit 5
+  exit 6
 fi
 
 export DEVELOPER_DIR="/Applications/Xcode.app/Contents/Developer"
@@ -58,7 +63,7 @@ print -- "Available Xcode devices:"
 /usr/bin/xcrun devicectl list devices || true
 
 print -- "Refreshing Pomodoro on ${DEVICE}."
-cd "${PROJECT_DIR}" || exit 6
+cd "${PROJECT_DIR}" || exit 7
 
 npx --yes @expo/cli@latest run:ios \
   --configuration Release \
