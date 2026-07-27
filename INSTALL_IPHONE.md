@@ -42,12 +42,6 @@ You will need:
 - A free Apple Account signed in to Xcode.
 - The Mac and iPhone on the same local Wi-Fi network for wireless refreshes.
 
-The project is located at:
-
-```text
-/Users/sriram/Documents/Ayyam/Study/Pomodoro
-```
-
 ## 1. Install and configure Xcode
 
 1. Install Xcode from the Mac App Store.
@@ -70,7 +64,8 @@ sudo xcodebuild -license accept
 Run:
 
 ```bash
-cd "/Users/sriram/Documents/Ayyam/Study/Pomodoro"
+git clone https://github.com/peruRepo/pomodoraApp.git
+cd pomodoraApp
 npm install
 npx expo install --check
 npx expo-doctor
@@ -143,9 +138,9 @@ After the USB installation succeeds:
 7. Test one wireless reinstall, replacing the example device name:
 
    ```bash
-   cd "/Users/sriram/Documents/Ayyam/Study/Pomodoro"
+   cd /path/to/pomodoraApp
    npx expo run:ios --configuration Release \
-     --device "Sriram's iPhone" \
+     --device "My iPhone" \
      --no-bundler
    ```
 
@@ -166,18 +161,18 @@ The repository includes:
 Open the LaunchAgent template:
 
 ```bash
-open -e \
-  "/Users/sriram/Documents/Ayyam/Study/Pomodoro/scripts/launchd/com.ayyam.flowpomodoro.refresh.plist.example"
+open -e scripts/launchd/com.ayyam.flowpomodoro.refresh.plist.example
 ```
 
-Replace:
+Replace both placeholders:
 
 ```text
 REPLACE_WITH_IPHONE_NAME_OR_ID
+REPLACE_WITH_PROJECT_DIR
 ```
 
-with the exact name or identifier from `xcrun devicectl list devices`. Save the
-file.
+Use the exact device name or identifier from `xcrun devicectl list devices` and
+the absolute path printed by `pwd`, respectively. Save the file.
 
 ### 6.2 Install the LaunchAgent
 
@@ -186,7 +181,7 @@ Run:
 ```bash
 mkdir -p "$HOME/Library/LaunchAgents"
 cp \
-  "/Users/sriram/Documents/Ayyam/Study/Pomodoro/scripts/launchd/com.ayyam.flowpomodoro.refresh.plist.example" \
+  "scripts/launchd/com.ayyam.flowpomodoro.refresh.plist.example" \
   "$HOME/Library/LaunchAgents/com.ayyam.flowpomodoro.refresh.plist"
 plutil -lint \
   "$HOME/Library/LaunchAgents/com.ayyam.flowpomodoro.refresh.plist"
@@ -210,8 +205,8 @@ The refresh script uses a timestamp file to avoid rebuilding too early. After
 the first USB or wireless installation succeeds, run:
 
 ```bash
-mkdir -p "/Users/sriram/Documents/Ayyam/Study/Pomodoro/.expo"
-touch "/Users/sriram/Documents/Ayyam/Study/Pomodoro/.expo/last-iphone-refresh"
+mkdir -p .expo
+touch .expo/last-iphone-refresh
 ```
 
 The automatic job will become eligible to refresh five days after this
@@ -231,7 +226,7 @@ refresh is not due:
 
 ```bash
 tail -n 50 \
-  "/Users/sriram/Documents/Ayyam/Study/Pomodoro/.expo/iphone-refresh.log"
+  ".expo/iphone-refresh.log"
 ```
 
 To test a real reinstall immediately, run the script with `--force` and the
@@ -239,8 +234,8 @@ exact device name or identifier:
 
 ```bash
 /bin/zsh \
-  "/Users/sriram/Documents/Ayyam/Study/Pomodoro/scripts/refresh-iphone.sh" \
-  "Sriram's iPhone" \
+  "scripts/refresh-iphone.sh" \
+  "My iPhone" \
   --force
 ```
 
@@ -269,7 +264,7 @@ For the refresh to succeed:
 The log is stored at:
 
 ```text
-/Users/sriram/Documents/Ayyam/Study/Pomodoro/.expo/iphone-refresh.log
+.expo/iphone-refresh.log
 ```
 
 ## Manually refresh at any time
@@ -279,8 +274,8 @@ run:
 
 ```bash
 /bin/zsh \
-  "/Users/sriram/Documents/Ayyam/Study/Pomodoro/scripts/refresh-iphone.sh" \
-  "Sriram's iPhone" \
+  "scripts/refresh-iphone.sh" \
+  "My iPhone" \
   --force
 ```
 

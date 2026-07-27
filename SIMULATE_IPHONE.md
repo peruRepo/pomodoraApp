@@ -20,18 +20,13 @@ You will need:
 
 The project uses Expo SDK 54. Expo Go must be able to open SDK 54 projects.
 
-The project is located at:
-
-```text
-/Users/sriram/Documents/Ayyam/Study/Pomodoro
-```
-
 ## 1. Install the project dependencies
 
-Open Terminal and run:
+Clone the repository, then install its dependencies:
 
 ```bash
-cd "/Users/sriram/Documents/Ayyam/Study/Pomodoro"
+git clone https://github.com/peruRepo/pomodoraApp.git
+cd pomodoraApp
 npm install
 ```
 
@@ -94,7 +89,7 @@ Press **Ctrl+C** in Terminal to stop Metro.
 To test again later, run:
 
 ```bash
-cd "/Users/sriram/Documents/Ayyam/Study/Pomodoro"
+cd /path/to/pomodoraApp
 npx expo start
 ```
 

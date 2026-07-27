@@ -2,6 +2,5 @@ node_modules/
 .expo/
 dist/
 web-build/
-scripts/
 *.log
 .DS_Store
