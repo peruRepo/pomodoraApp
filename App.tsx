@@ -796,6 +796,17 @@ function JsonModal({
               >
                 <Text style={styles.sourceTabText}>Fetch URL</Text>
               </Pressable>
+              <Pressable
+                style={[styles.sourceTab, styles.importTab, busy && styles.disabled]}
+                onPress={onImport}
+                disabled={busy}
+              >
+                {busy ? (
+                  <ActivityIndicator color={COLORS.white} size="small" />
+                ) : (
+                  <Text style={styles.importTabText}>Import</Text>
+                )}
+              </Pressable>
             </View>
             {source === "paste" ? (
               <>
@@ -832,17 +843,6 @@ function JsonModal({
                 </Text>
               </View>
             )}
-            <Pressable
-              style={[styles.modalPrimary, busy && styles.disabled]}
-              onPress={onImport}
-              disabled={busy}
-            >
-              {busy ? (
-                <ActivityIndicator color={COLORS.white} />
-              ) : (
-                <Text style={styles.modalPrimaryText}>Validate & import</Text>
-              )}
-            </Pressable>
           </>
         ) : (
           <>
@@ -1141,6 +1141,13 @@ const styles = StyleSheet.create({
   },
   sourceTabActive: { backgroundColor: COLORS.lime },
   sourceTabText: { color: COLORS.ink, fontWeight: "700", fontSize: 12 },
+  importTab: {
+    minWidth: 74,
+    alignItems: "center",
+    backgroundColor: COLORS.green,
+    marginLeft: "auto",
+  },
+  importTabText: { color: COLORS.white, fontWeight: "800", fontSize: 12 },
   jsonInput: {
     flex: 1,
     backgroundColor: COLORS.ink,
